@@ -22,6 +22,7 @@ endif()
 
 # Find necessary packages
 find_package(MPI REQUIRED)
+find_package(stream-triggering REQUIRED)
 
 option(USE_LOCALITY "Use MPI Advance Locality-Aware" OFF)
 if (USE_LOCALITY)
@@ -34,6 +35,7 @@ endif()
 add_library(abcg src/cg.cpp)
 target_include_directories(abcg PUBLIC src)
 target_link_libraries(abcg PUBLIC MPI::MPI_CXX)
+target_link_libraries(abcg PRIVATE MPIAdvance::stream-triggering)
 
 if (USE_LOCALITY)
     target_compile_definitions(abcg PUBLIC MPIL)
